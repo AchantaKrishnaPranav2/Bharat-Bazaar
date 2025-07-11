@@ -9,8 +9,7 @@ Original file is located at
 
 import random
 
-# -- Game Constants --
-
+#These are the tiles on the board
 properties = [
     "Start", "Mumbai", "Community Chest", "Delhi", "Income Tax", "Chhatrapati Terminus",
     "Pune", "Chance", "Ahmedabad", "Surat", "Jail", "Jaipur", "Rajiv Gandhi Airport",
@@ -21,14 +20,16 @@ properties = [
     "Luxury Tax", "Lottery"
 ]
 
-# set of non buyable properties
+# The non buyable properties
 non_buyable = {
     "Start", "Community Chest", "Chance", "Income Tax", "Jail", "Free Parking", "Go to Jail",
     "Lottery", "Luxury Tax", "Water Works", "Electric Company"
 }
 
-# list of buyable properties
+# The list of buyable properties
 unsold = [prop for prop in properties if prop not in non_buyable]
+
+#The list of properties that are bought
 sold = []
 owner = []
 
@@ -36,14 +37,14 @@ owner = []
 property_prices = {prop: 200 for prop in unsold}
 rent_prices = {prop: 50 for prop in unsold}
 
-# -- Chance Card Effects --
+# Chance cards
 
 chance_cards = [
     {"text": "Income Tax Refund! Collect ₹50.", "effect": lambda player: setattr(player, "money", player.money + 50)},
     {"text": "Speeding Fine! Pay ₹50.", "effect": lambda player: setattr(player, "money", player.money - 50)}
 ]
 
-# -- Player Class --
+# The Player Class
 
 class Player:
     def __init__(self, name):
@@ -52,30 +53,32 @@ class Player:
         self.money = 1500
         self.assets = []
 
-# -- Utility Functions --
 
+# The fuction for simulating the die roll
 def die_roll():
-    """Simulate rolling two dice."""
     return random.randint(2, 12)
 
+# Give a random Chance card to the player
 def handle_chance(player):
-    """Apply a random chance card effect to the player."""
     card = random.choice(chance_cards)
     print(f"📦 CHANCE CARD: {card['text']}")
     card["effect"](player)
-
+    
+# This is the main check function which does the action to be done when a player falls on a tile
 def check_position(pos, i, players, injail):
-    """Handle what happens when a player lands on a board square."""
     current_property = properties[pos]
     player = players[i]
 
+    # This checks if the player is in jail
     if current_property == "Jail" and injail[i] == 0:
         print("You are visiting Jail.")
         injail[i] += 1
 
+    # This calls the chance function
     elif current_property == "Chance":
         handle_chance(player)
 
+    #If the property is unsold then this prompts if the player wants to buy
     elif current_property in unsold:
         price = property_prices[current_property]
         print(f"Do you want to buy '{current_property}' for ₹{price}?")
@@ -94,6 +97,8 @@ def check_position(pos, i, players, injail):
         except ValueError:
             print("Invalid input.")
 
+
+    # If it is sold then this applies the rent mechanism
     elif current_property in sold:
         owner_index = owner[sold.index(current_property)]
         if i != owner_index:
@@ -103,8 +108,9 @@ def check_position(pos, i, players, injail):
             player.money -= rent
             players[owner_index].money += rent
 
-# -- Main Game Loop --
 
+
+# The main loop
 def main():
     try:
         total_players = int(input("Enter number of players (min 2): "))
@@ -183,7 +189,7 @@ def main():
                 except ValueError:
                     print("Enter a valid number.")
 
-# -- Run the Game --
+# This runs the game
 
 if __name__ == "__main__":
     main()
