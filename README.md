@@ -4,36 +4,34 @@ A Basic Trade game implemented in Python, featuring Indian cities, stations, and
 
 This is a command-line multiplayer game where players can buy properties, pay rent, and try to bankrupt their opponents.
 
----
 
 ### Key Features
 
 ### Multi-Player Support
 - Supports 2 or more players
-- Players can choose their own names
+- Players can choose their names
 
 ### Dice Rolling
-- Simulates rolling two 6-sided dice (2–12 total)
-- Moves player around a 40-tile board
+- Has two Die (2-12)
+- Players move in a 40-tile board
 
-### Indian Property Board
-- Board includes Indian cities (e.g., Mumbai, Hyderabad), airports, stations, and utilities
-- Special tiles: Jail, Free Parking, Income Tax, Chance, Community Chest, Go to Jail
+### Indian Properties
+- Board includes Indian cities, airports etc
+- Jail, Free Parking, Income Tax, Chance, Community Chest, Go to Jail
 
 ### Property Buying and Rent
-- Properties can be bought for ₹200
-- Landing on another player’s property requires paying ₹50 in rent
-- Ownership and assets tracked individually
+- ₹200 per property
+- ₹50 is the rent if a person falls on other persons property
 
 ### Start Bonus
-- Players receive ₹200 when passing the "Start" tile
+- Players receive ₹200 when they pass "Start" 
 
-### Bankruptcy System
-- Bankrupt players are removed from the game
-- Last remaining player wins
+### Win mechanism
+- Players who cannot pay the amount are declared Bankrupt and are removed from the game
+- The last player to remain wins
 
-### Jail Mechanic
-- Skips one turn when landed on "Jail"
+### Jail Mechanism
+- one turn is skipped when landed on "Jail"
 
 ### Chance Cards
 - Landing on a Chance tile activates one random event:
@@ -41,12 +39,11 @@ This is a command-line multiplayer game where players can buy properties, pay re
   - Speeding Fine: Pay ₹50
 
 ### Player Actions
-Each turn, a player can:
+In each turn, a player can:
 - Roll the die
 - Declare bankruptcy
-- View owned properties
+- View the owned properties
 
----
 
 ## Technical Highlights
 
@@ -56,7 +53,12 @@ Each turn, a player can:
 - Clean input handling and error checks
 - Easy to expand with features like houses, trading, GUI, save/load
 
+## Future Improvements
 
+- Adding a properties Class
+- Induvidual prices and rents for each property
+- House meachanism
+- double the rent when you own all the properties of a colour
 
 ---
 
